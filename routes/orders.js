@@ -1,0 +1,73 @@
+let express = require('express')
+const Order = require('../models/orders')
+
+let router  = express.Router()
+
+router.post('/create' , async(req, res) => {
+   const order = {
+    account_Name:'New Castle Limited',
+    account_Number:'48653485323',
+    account_Type:'Savings Account',
+    location: '23 Manchester City'
+   }
+let orders =  await new Order({
+    account_Name:req.body.account_Name,
+    account_Number:req.body.account_Number,
+    account_Type:req.body.account_Type,
+    location: req.body.location  
+})
+
+    orders.save()
+
+        if(!orders) {
+            res.send({status:500, message:'Invalid Or Bad request'})
+        }
+        else
+            res.send({status:200, message:'success', orders});
+})
+
+router.get('/' , async (req, res ) => {
+
+        const orders = await Order.find()
+        
+        res.send({status:200, message:'success', orders})
+
+});
+
+router.get('/order-name', async (req, res) => {
+    const id = req.query.id;
+    const nameFind = req.query.account_Name;
+    const orders = await Order.find({nameFind});
+
+    // res.send({status:200 , message:'Success', orders:orders.length, ordersObj:orders })
+
+    res.status(200).json({
+        message:'Success', 
+        orders:orders.length, 
+        ordersObj:orders
+    })
+})
+
+
+router.put('/update',  (req,res) => {
+    const id = req.query.id;
+    const name = req.query.account_Name;
+
+    const orders = Order.findByIdAndUpdate(id); 
+
+    res.send(orders);
+
+    // res.send({status:200 , message:'Order Updated Successfully', orders:orders})
+})
+
+
+router.delete('/delete', async (req, res) => {
+    const id = req.query.id
+    // const name
+
+    const deleted = await Order.findOneAndDelete(id)
+
+    res.send({status:200, message:'Order Deleted', deleted});
+})
+
+module.exports = router;

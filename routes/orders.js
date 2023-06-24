@@ -53,11 +53,11 @@ router.put('/update',  (req,res) => {
     const id = req.query.id;
     const name = req.query.account_Name;
 
-    const orders = Order.findByIdAndUpdate(id); 
+    const orders = Order.findOneAndUpdate(id, {name}); 
 
-    res.send(orders);
+    // console.log(orders)
 
-    // res.send({status:200 , message:'Order Updated Successfully', orders:orders})
+    res.send({status:200 , message:'Order Updated Successfully', orders:orders})
 })
 
 
@@ -65,9 +65,9 @@ router.delete('/delete', async (req, res) => {
     const id = req.query.id
     // const name
 
-    const deleted = await Order.findOneAndDelete(id)
+    await Order.findOneAndDelete({id})
 
-    res.send({status:200, message:'Order Deleted', deleted});
+    res.send({status:200, message:'Order Deleted', id:id});
 })
 
 module.exports = router;

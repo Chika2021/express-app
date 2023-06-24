@@ -1,39 +1,21 @@
 
 let express  = require('express');
 let Product = require('../models/product');
-const { createProduct, getProduct } = require('../controller/productController');
+const { createProduct, getProduct,
+        updateProduct, searchProduct, 
+                        deleteProduct } =
+                                        require('../controller/productController');
 
 let router = express.Router();
 
+router.get('/' , getProduct);
 
 router.post('/create' , createProduct);
 
-router.get('/' , getProduct);
+router.put('/update' , updateProduct);
        
-router.get('/name' , async (req, res ) => {
+router.get('/name' , searchProduct);
 
-    const nameFind = req.query.name;
-
-    const newProduct = await Product.find({name:nameFind})
-    
-    res.status(200).json({
-        message:'Product Found',
-        products:newProduct.length,
-        productObj:newProduct
-    });
-
-});  
-
-router.put('/update' , async (req,res) => {
-    const id = req.query.id;
-    // const id = '648dd4db1ce26922bf335e38';
-    const name = req.query.name;
-    
-    const newProduct = await Product.findOneAndUpdate(id, {name:name}); 
-
-
-    // console.log(id)
-    res.send({status:200, message:'Product Updated Successfully' , product:newProduct } );
-});
+router.delete('/delete' ,  deleteProduct )
 
 module.exports = router;

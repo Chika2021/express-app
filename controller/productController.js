@@ -9,7 +9,8 @@ exports.createProduct =  async (req, res) =>{
         
         name:req.body.name,
         type:req.body.type,
-        brand:req.body.brand
+        brand:req.body.brand,
+        orders: orders.id
     });
 
 
@@ -26,7 +27,7 @@ exports.createProduct =  async (req, res) =>{
 
 
 exports.getProduct = async (req, res)=>{
-    const newProduct  = await Product.find();
+    const newProduct  = await Product.find().populate('orders');
   
     res.send({status:200, productObj:newProduct})
       

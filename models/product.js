@@ -1,5 +1,6 @@
 let express = require('express');
 let mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 const Order = require('./orders');
 
 const ProductSchema = mongoose.Schema( {
@@ -8,8 +9,8 @@ const ProductSchema = mongoose.Schema( {
     type:String,
     brand:String,
     orders: [{
-        type:mongoose.Schema.Types.ObjectId,
-        ref: Order
+        type:Schema.Types.ObjectId,
+        ref: 'Order'
     }]
 });
 

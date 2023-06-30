@@ -31,7 +31,7 @@ exports.createOrders  = async(req, res) => {
 
     const orders = await Order.find()
     
-    res.send({status:200, message:'success', orders})
+    res.send({status:200, message:'success', orders});
 
 }
 
@@ -68,4 +68,7 @@ exports.deleteOrders = async (req, res) => {
     await Order.findOneAndDelete({id})
 
     res.send({status:200, message:'Order Deleted', id:id});
+
+
+
 }

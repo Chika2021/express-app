@@ -1,6 +1,7 @@
 
 let express  = require('express');
 let Product = require('../models/product')
+let orders = require('../models/orders');
 
 
 exports.createProduct =  async (req, res) =>{
@@ -29,7 +30,7 @@ exports.createProduct =  async (req, res) =>{
 exports.getProduct = async (req, res)=>{
     const newProduct  = await Product.find().populate('orders');
   
-    res.send({status:200, productObj:newProduct})
+    res.send({status:200, productObj:newProduct});
       
 }
 
@@ -70,4 +71,12 @@ exports.deleteProduct = async (req , res ) => {
     const product = await Product.findByIdAndDelete(id);
 
     res.send({status:200 , message:'Product Deleted Successfully' , product});
+
+// exports.getOrders = async (req, res ) => {
+
+//     const product = await Product.find();
+
+
+//     res.send({status:200, message:'success', product})
+// }
 }

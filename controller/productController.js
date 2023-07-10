@@ -30,6 +30,7 @@ exports.createProduct =  async (req, res) =>{
 exports.getProduct = async (req, res)=>{
     const newProduct  = await Product.find().populate('orders');
   
+  
     res.send({status:200, productObj:newProduct});
       
 }

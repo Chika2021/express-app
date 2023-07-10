@@ -10,6 +10,7 @@ var usersRouter = require('./routes/users');
 
 let products = require('./routes/products');
 let orders = require('./routes/orders');
+// let users = require('./routes/users')
 
 var app = express();
 
@@ -35,6 +36,7 @@ app.use('/users', usersRouter);
 
 app.use('/products', products)
 app.use('/orders', orders)
+// app.use('/users' , users);
 
 
 
